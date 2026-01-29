@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmação</title>
+
+  <!-- ===================== -->
+  <!-- TIKTOK PIXEL (NOVO) -->
+  <!-- ===================== -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;
+    var ttq=w[t]=w[t]||[];
+    ttq.methods=[
+      "page","track","identify","instances","debug","on","off","once",
+      "ready","alias","group","enableCookie","disableCookie",
+      "holdConsent","revokeConsent","grantConsent"
+    ];
+    ttq.setAndDefer=function(t,e){
+      t[e]=function(){
+        t.push([e].concat(Array.prototype.slice.call(arguments,0)))
+      }
+    };
+    for(var i=0;i<ttq.methods.length;i++){
+      ttq.setAndDefer(ttq,ttq.methods[i])
+    }
+    ttq.instance=function(t){
+      for(
+        var e=ttq._i[t]||[],n=0;
+        n<ttq.methods.length;
+        n++
+      ) ttq.setAndDefer(e,ttq.methods[n]);
+      return e
+    };
+    ttq.load=function(e,n){
+      var r="https://analytics.tiktok.com/i18n/pixel/events.js",
+          o=n&&n.partner;
+      ttq._i=ttq._i||{};
+      ttq._i[e]=[];
+      ttq._i[e]._u=r;
+      ttq._t=ttq._t||{};
+      ttq._t[e]=+new Date;
+      ttq._o=ttq._o||{};
+      ttq._o[e]=n||{};
+      n=document.createElement("script");
+      n.type="text/javascript";
+      n.async=!0;
+      n.src=r+"?sdkid="+e+"&lib="+t;
+      e=document.getElementsByTagName("script")[0];
+      e.parentNode.insertBefore(n,e)
+    };
+
+    ttq.load('D5TQL3JC77UD675HT400');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+  <!-- ===================== -->
+  <!-- TIKTOK PIXEL END -->
+  <!-- ===================== -->
+
+  <!-- ===================== -->
+  <!-- FYCLOAK (1x apenas) -->
+  <!-- ===================== -->
+<script>
+    window.FYCLOAK_CAMPAIGN_ID = 4104;  // ID da sua campanha
+    window.FYCLOAK_USER_ID = 518;      // Seu user ID
+</script>
+<script src="https://cdn.fycloak.com/scripts/advanced-fingerprint.js"></script>
+
+  <!-- ===================== -->
+  <!-- ESTILO -->
+  <!-- ===================== -->
+  <style>
+    body {
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    button {
+      padding: 20px 40px;
+      font-size: 22px;
+      border: none;
+      border-radius: 8px;
+      background: #000;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+
+<button id="purchaseBtn">ACESSAR GRUPO</button>
+
+<script>
+  /* ==============================
+     EVENTO PURCHASE + REDIRECT
+  ============================== */
+
+  const btn = document.getElementById("purchaseBtn");
+  let fired = false;
+
+  btn.addEventListener("click", function () {
+    if (fired) return;
+    fired = true;
+    btn.disabled = true;
+
+    try {
+      ttq.track("Purchase", {
+        value: 9.90,
+        currency: "BRL",
+        event_id: "purchase_" + Date.now(),
+        contents: [
+          {
+            content_id: "prod001",
+            content_type: "product",
+            quantity: 1,
+            price: 9.90
+          }
+        ]
+      });
+    } catch (e) {
+      console.error("Erro ao disparar Purchase:", e);
+    }
+
+    setTimeout(() => {
+      window.location.href = "https://t.me/+ixSVQhqNf8cwZjU5";
+    }, 800);
+  });
+
+  /* ==============================
+     FALLBACK DE SEGURANÇA
+  ============================== */
+  setTimeout(() => {
+    if (!fired) {
+      window.location.href = "https://t.me/+ixSVQhqNf8cwZjU5";
+    }
+  }, 15000);
+</script>
+
+</body>
+</html>
